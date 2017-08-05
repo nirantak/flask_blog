@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Simple Flask Blog App" />
+    <meta name="author" content="Nirantak Raghav" />
     <title>Flask Blog</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -13,10 +18,11 @@
         {% include 'includes/_messages.html' %}
         {% block body %}{% endblock %}
     </div>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.6.2/basic/ckeditor.js"></script>
+    <script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
     <script type="text/javascript">
-    CKEDITOR.replace('editor')
+        CKEDITOR.replace('editor')
     </script>
 </body>
 

@@ -4,7 +4,7 @@
 ### Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
-* [Prerequisites](#prerequisites)
+* [Requirements](#requirements)
 * [License](#license)
 
 ### Installation
@@ -23,8 +23,9 @@ $ pip install -r requirements.txt
 $ python app.py
 ```
 
-### Prerequisites
+### Requirements
 1. [Python](https://python.org)
+2. [MySQL](https://www.apachefriends.org/download.html)
 
 ### License
 This code has been released under [The Unlicense](LICENSE).
