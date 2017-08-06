@@ -1,5 +1,4 @@
 from flask import Flask, render_template, flash, redirect, url_for, session, request, logging
-# from data import Articles # Use local data from file data.py
 from flask_mysqldb import MySQL
 from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
@@ -15,9 +14,7 @@ app.config['MYSQL_DB'] = 'flaskblog'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
-# Articles = Articles() # Use local data from file data.py
-
-# Index
+# Homepage
 @app.route('/')
 def index():
 	return render_template('home.html')
@@ -40,7 +37,7 @@ def articles():
 		return render_template('articles.html', msg=msg)
 	cur.close()
 
-#Single Article
+# Single Article
 @app.route('/article/<string:id>/')
 def article(id):
 	cur = mysql.connection.cursor()
@@ -69,7 +66,7 @@ def register():
 		username = form.username.data
 		password = sha256_crypt.encrypt(str(form.password.data))
 
-		# Create cursor
+		# MySQL Cursor
 		cur = mysql.connection.cursor()
 		cur.execute("INSERT INTO users(name, email, username, password) VALUES(%s, %s, %s, %s)", (name, email, username, password))
 		mysql.connection.commit()
@@ -87,7 +84,7 @@ def login():
 		username = request.form['username']
 		password_candidate = request.form['password']
 
-		# Create cursor
+		# MySQL Cursor
 		cur = mysql.connection.cursor()
 		result = cur.execute("SELECT * FROM users WHERE username = %s", [username])
 
@@ -162,7 +159,7 @@ def add_article():
 		title = form.title.data
 		body = form.body.data
 
-		# Create Cursor
+		# MySQL Cursor
 		cur = mysql.connection.cursor()
 		cur.execute("INSERT INTO articles(title, body, author) VALUES(%s, %s, %s)",(title, body, session['username']))
 		mysql.connection.commit()
@@ -177,7 +174,7 @@ def add_article():
 @app.route('/edit_article/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def edit_article(id):
-	# Create cursor
+	# MySQL Cursor
 	cur = mysql.connection.cursor()
 	result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
 	article = cur.fetchone()
@@ -193,7 +190,7 @@ def edit_article(id):
 		title = request.form['title']
 		body = request.form['body']
 
-		# Create Cursor
+		# MySQL Cursor
 		cur = mysql.connection.cursor()
 		app.logger.info(title)
 		cur.execute ("UPDATE articles SET title=%s, body=%s WHERE id=%s",(title, body, id))
@@ -208,7 +205,7 @@ def edit_article(id):
 @app.route('/delete_article/<string:id>', methods=['POST'])
 @is_logged_in
 def delete_article(id):
-	# Create cursor
+	# MySQL Cursor
 	cur = mysql.connection.cursor()
 	cur.execute("DELETE FROM articles WHERE id = %s", [id])
 	mysql.connection.commit()
